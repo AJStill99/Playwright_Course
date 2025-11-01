@@ -1,4 +1,4 @@
-const {test} = require('@playwright/test');
+const {test, expect} = require('@playwright/test');
 
 test('First Test', async ({browser}) => {
     // Instead of page, can pass nothing and be treated as an anon function
@@ -29,8 +29,13 @@ test('First Test', async ({browser}) => {
 
 test('Browser context test', async ({page}) => {
     await page.goto('https://www.example.com');
-    // This achieves the same as above, far cleaner
-    console.log("Passing");
+    // This achieves the same as above, but far cleaner
+    console.log("Running test...");
+
+    //Get title, and put assertion if correct
+    console.log(await page.title());
+    await expect(page).toHaveTitle("Example Domain");
+    // Assertion to check title is correct
 });
 
 test('UI Test', async ({page}) => {
