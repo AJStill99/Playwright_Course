@@ -17,6 +17,10 @@ const config = defineConfig({
   use: {
     browserName: 'chromium', 
     // Default browser to use
+    headless: false,
+    // Show the browser UI
+    viewport: { width: 1280, height: 720 },
+    // Sets the browser size
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
