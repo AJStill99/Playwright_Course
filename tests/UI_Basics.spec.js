@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 
 test('First Test', async ({browser}) => {
-    // Instead of page, can pass nothing and be treated as an anon function
+    // Instead of page or browser, can pass nothing and be treated as an anon function
     // the await keyword will execute the command and wait for it to finish
     // Need to declare async before using await
 
@@ -28,8 +28,8 @@ test('First Test', async ({browser}) => {
 // easier way to write this below:
 
 test('Browser context test', async ({page}) => {
-    await page.goto('https://www.example.com');
     // This achieves the same as above, but far cleaner
+    await page.goto('https://www.example.com');
     console.log("Running test...");
 
     //Get title, and put assertion if correct
@@ -55,5 +55,14 @@ test('UI Test', async ({page}) => {
 // });
 
 // When run, only the above test will run in the batch command
+
+test.only("Page playwright tests", async ({page}) => {
+    await page.goto("https://google.com");
+    console.log(await page.title());
+    console.log(`Running in browser: ${page.context().browser().browserType().name()}`);
+    // Makes it clear which browser is being used
+
+    await expect(page).toHaveTitle("Google");
+});
 
 
