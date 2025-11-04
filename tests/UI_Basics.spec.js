@@ -56,13 +56,42 @@ test('UI Test', async ({page}) => {
 
 // When run, only the above test will run in the batch command
 
-test.only("Page playwright tests", async ({page}) => {
+test("Page playwright tests", async ({page}) => {
     await page.goto("https://google.com");
     console.log(await page.title());
     console.log(`Running in browser: ${page.context().browser().browserType().name()}`);
     // Makes it clear which browser is being used
 
     await expect(page).toHaveTitle("Google");
+
+
+});
+
+test.only("CSS Selectors and Playwright locators", async ({page}) => {
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await page.title());
+
+    // CSS selectors
+    await page.locator('#username').fill("rahulshetty");
+    // Can use type, or fill for the above line, but fill is better now
+    await page.locator("[type='password']").fill("learning");
+    await page.locator("#signInBtn").click();
+
+    // This will produce an error as the username is incorrect
+    // Will need to handle the error message popup
+
+    await page.locator("[style*='block']");
+    // Partial match using wildcard * for style attribute
+    // Don't need to explicitly wait to load, as plywright does this automatically
+
+    console.log(await page.locator("[style*='block']").textContent());
+    // Logs the error message text
+
+    await expect(page.locator("[style*='block']")).toContainText('Incorrectt');
+    // Assertion to check error message contains 'Incorrect'
+    // The above will fail due to the typo in the text, but display how the expect timeout works really well
+
+    
 });
 
 

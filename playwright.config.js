@@ -13,12 +13,13 @@ const config = defineConfig({
   expect: {
     timeout: 30 * 1000,
     // Maximum time expect() should wait for the condition to be met
+    // waits for 30 seconds - this might be a bit high for most cases
   },
   use: {
     browserName: 'chromium', 
     // Default browser to use
     headless: false,
-    // Show the browser UI
+    // Show the browser UI, running in headed mode
     viewport: { width: 1280, height: 720 },
     // Sets the browser size
 
