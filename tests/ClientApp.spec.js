@@ -14,6 +14,13 @@ test('Borwser Context-validating error login', async ({page}) => {
     Essentially what we are doing here is waiting until the network tab returns the data from the products endpoint, 
     and is then displayed by the FE so we can continue with our test(s)
     */
+
+    //Alternative option, if the above method doesn't work (IS NOT RECOMMENDED)
+
+    await page.locator(".card-body b").first().waitFor();
+    // waitFor will fail for multiple elements returned, hence putting first() here
+
+
     const titles = await page.locator(".card-body b").allTextContents();
     console.log(titles)
 
