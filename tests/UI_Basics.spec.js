@@ -69,14 +69,17 @@ test("Page playwright tests", async ({page}) => {
 
 test.only("CSS Selectors and Playwright locators", async ({page}) => {
     const userName = await page.locator('#username');
+    const signIn = await page.locator('#signInBtn');
+    const cardTitles = await page.locator('.card-body a')
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
 
     // CSS selectors
-    await page.locator('#username').fill("rahulshetty");
-    // Can use type, or fill for the above line, but fill is better now
+    await userName.fill("rahulshetty");
     await page.locator("[type='password']").fill("learning");
-    await page.locator("#signInBtn").click();
+    await signIn.click();
+    // Can use type, or fill for the above code block but fill is better now
+    // Notice we are refactoring code here
 
     // This will produce an error as the username is incorrect
     // Will need to handle the error message popup
@@ -88,11 +91,35 @@ test.only("CSS Selectors and Playwright locators", async ({page}) => {
     console.log(await page.locator("[style*='block']").textContent());
     // Logs the error message text
 
-    await expect(page.locator("[style*='block']")).toContainText('Incorrectt');
+    await expect(page.locator("[style*='block']")).toContainText('Incorrect');
+
+    // await expect(page.locator("[style*='block']")).toContainText('Incorrectt');
     // Assertion to check error message contains 'Incorrect'
-    // The above will fail due to the typo in the text, but display how the expect timeout works really well
+    // The above will fail due to the typo in the text, but display how the expect timeout works really well, commented out to avoid a test failure
+    await userName.fill("");
+    // will fill an emtpy string
+
+    // Correct username and password
+    await userName.fill("rahulshettyacademy");
+    await signIn.click();
+    await page.locator("[type='password']").fill("learning");
+
+    console.log(await cardTitles.first().textContent());
+    // This will return the first element of the selectors if multiple
+    // Can achieve a similar affect by using .nth(0)
+    // The above could be used in a for loop maybe? 
+
+    const allTitles = await cardTitles.allTextContents();
+    // Not waiting until contents are present
+    // Returns all elements
+    // Will pass in this instance because Playwright will wait for .textContent assertion, but if this is commented out, it will return nothing
+    console.log(allTitles);
+
+
+
+
+
     
-    expect
 });
 
 
