@@ -113,13 +113,7 @@ test.only("CSS Selectors and Playwright locators", async ({page}) => {
     // Not waiting until contents are present
     // Returns all elements
     // Will pass in this instance because Playwright will wait for .textContent assertion, but if this is commented out, it will return nothing
-    console.log(allTitles);
-
-
-
-
-
-    
+    console.log(allTitles);  
 });
 
 
