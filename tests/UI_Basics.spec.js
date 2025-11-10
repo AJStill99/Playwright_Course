@@ -68,6 +68,7 @@ test("Page playwright tests", async ({page}) => {
 });
 
 test.only("CSS Selectors and Playwright locators", async ({page}) => {
+    const userName = await page.locator('#username');
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
 
@@ -90,8 +91,8 @@ test.only("CSS Selectors and Playwright locators", async ({page}) => {
     await expect(page.locator("[style*='block']")).toContainText('Incorrectt');
     // Assertion to check error message contains 'Incorrect'
     // The above will fail due to the typo in the text, but display how the expect timeout works really well
-
     
+    expect
 });
 
 
