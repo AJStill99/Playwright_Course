@@ -67,7 +67,7 @@ test("Page playwright tests", async ({page}) => {
 
 });
 
-test.only("CSS Selectors and Playwright locators", async ({page}) => {
+test("CSS Selectors and Playwright locators", async ({page}) => {
     const userName = await page.locator('#username');
     const signIn = await page.locator('#signInBtn');
     const cardTitles = await page.locator('.card-body a')

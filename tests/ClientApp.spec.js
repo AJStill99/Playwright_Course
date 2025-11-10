@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test.only('Borwser Context-validating error login', async ({page}) => {
+test('Borwser Context-validating error login', async ({page}) => {
     await page.goto('https://rahulshettyacademy.com/client');
     await page.locator('#userEmail').fill("anshika@gmail.com");
     await page.locator('#userPassword').fill("Iamking@000");
