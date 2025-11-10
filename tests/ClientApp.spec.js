@@ -24,4 +24,16 @@ test('Borwser Context-validating error login', async ({page}) => {
     const titles = await page.locator(".card-body b").allTextContents();
     console.log(titles)
 
+    /* 
+    What we have done for the above, is:
+    - Go to client app on RahulShettyAacademy
+    - Located both the email and password elements and filled them with hardcoded values
+    - Located the login button and logged in 
+
+    - The next section focuses on getting all the elements with the .card-body attirbute, but Playwright doesn't like this
+      so using two different methods to achieve a similar goal: waiting until the network page is idle (aka sending no more requests)
+      and, putting an assertion to locate an element using waitFor, and first() as waitFor() doesn't work well with multiple return values
+      only then will you be able able to log 'titles' successfully, and the test be a TRUE pass
+    */
+
 });
