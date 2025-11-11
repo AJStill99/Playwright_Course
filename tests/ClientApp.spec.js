@@ -28,9 +28,7 @@ test('Borwser Context-validating error login', async ({page}) => {
 
     - The next section focuses on getting all the elements with the .card-body attirbute, but Playwright doesn't like this
       so using two different methods to achieve a similar goal: waiting until the network page is idle (aka sending no more requests)
-      and, putting an assertion to locate an element using waitFor, and first() as waitFor() doesn't work well with multiple return values
+      and, putting an assertion to locate an element using waitFor and first() as waitFor() doesn't work well with multiple return values
       only then will you be able able to log 'titles' successfully, and the test be a TRUE pass
     */
-
-      // NEXT LECTURE FOCUSES ON HANDLING STATIC SELECT DROPDOWN OPTIONS - delete when started
 });
