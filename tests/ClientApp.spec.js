@@ -9,7 +9,7 @@ test('Borwser Context-validating error login', async ({page}) => {
     await page.waitForLoadState('networkidle'); // On this particular site, we want to wait until all networks calls have been made
     // waits until network comes to an idle state; aka, not more calls are being made
 
-    /* 
+    /* NOTE
     Essentially what we are doing here is waiting until the network tab returns the data from the products endpoint, 
     and is then displayed by the FE so we can continue with our test(s)
     */
@@ -20,7 +20,7 @@ test('Borwser Context-validating error login', async ({page}) => {
     const titles = await page.locator(".card-body b").allTextContents();
     console.log(titles)
 
-    /* 
+    /* NOTE
     What we have done for the above, is:
     - Go to client app on RahulShettyAacademy
     - Located both the email and password elements and filled them with hardcoded values

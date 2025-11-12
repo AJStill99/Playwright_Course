@@ -118,27 +118,36 @@ test("CSS Selectors and Playwright locators", async ({page}) => {
 });
 
 test("UI Controls", async ({page}) => {
-    // SECTION
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     const userName = await page.locator('#username');
     const signIn = await page.locator('#signInBtn');
+
+    // SECTION - DROPDOWNS
     const dropDown = await page.locator("select.form-control")
     // reason for using this locator is because the class form-control is not unique, but pairing it with select is
     await dropDown.selectOption("consult")
     // Passing the value into this method, otherwise will try to get them all
 
     /* 
-    NOTE: focuses on:
+    NOTE - focuses on:
     - Going to page (getting the username and signin button stored)
     - Storing the dropdown in a variable, and selecting an option from the list
     */
 
-    //RADIO BUTTONS
+    // SECTION - RADIO BUTTONS
 
     await page.locator(".radiotextsty").last().click();
     await page.locator("#okayBtn").click(); // Click will wait for 30s for element to appear on the page 
-    console.log(await page.locator("radiotextsty").last().isChecked()) 
+    console.log(await page.locator(".radiotextsty").last().isChecked()) // Will return a boolean value, if/else statement may be good here? 
     await expect(page.locator(".radiotextsty").last()).toBeChecked();
+
+    // SECTION - CHECKBOXES
+
+    await page.locator("#terms").click();
+    await expect(page.locator('#terms')).toBeChecked();
+    await page.locator('#terms').uncheck(); // Uncheck the box
+    expect(await page.locator('#terms').isChecked()).toBeFalsy(); // Returns false this time as has been unchecked, no isUnchecked method so this is a workaround
+
 
     /* 
     NOTE: Focus here:
