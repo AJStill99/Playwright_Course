@@ -1,4 +1,5 @@
 const {test, expect} = require('@playwright/test');
+const { todo } = require('node:test');
 
 test('First Test', async ({browser}) => {
     // Instead of page or browser, can pass nothing and be treated as an anon function
@@ -117,17 +118,17 @@ test("CSS Selectors and Playwright locators", async ({page}) => {
 });
 
 test("UI Controls", async ({page}) => {
+    // SECTION
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     const userName = await page.locator('#username');
     const signIn = await page.locator('#signInBtn');
-
     const dropDown = await page.locator("select.form-control")
     // reason for using this locator is because the class form-control is not unique, but pairing it with select is
     await dropDown.selectOption("consult")
     // Passing the value into this method, otherwise will try to get them all
 
     /* 
-    focuses on:
+    NOTE: focuses on:
     - Going to page (getting the username and signin button stored)
     - Storing the dropdown in a variable, and selecting an option from the list
     */
@@ -135,17 +136,17 @@ test("UI Controls", async ({page}) => {
     //RADIO BUTTONS
 
     await page.locator(".radiotextsty").last().click();
-    await page.locator("#okayBtn").click();
-    // Click will wait for 30s for element to appear on the page
-
-    // Need assertion to check it is selected
+    await page.locator("#okayBtn").click(); // Click will wait for 30s for element to appear on the page 
+    console.log(await page.locator("radiotextsty").last().isChecked()) 
+    await expect(page.locator(".radiotextsty").last()).toBeChecked();
 
     /* 
-    Focus here:
+    NOTE: Focus here:
     - Getting the last radio button as there are multiple of them
     - Clicking the okay button from the pop up that appears after selecting one of the radio buttons
     - Using assertion to ensure our selection has been made
     */
+
 
 
 
