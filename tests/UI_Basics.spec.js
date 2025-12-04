@@ -87,9 +87,10 @@ test("UI Controls", async ({page}) => {
     await page.locator('#terms').uncheck(); // Uncheck the box
     expect(await page.locator('#terms').isChecked()).toBeFalsy(); // Returns false this time as has been unchecked, no isUnchecked method so this is a workaround
     // Notice the await is inside the brackets, because the action is needed inside the brackets
+    // the await keyword is tied to actions
     // Also note the toBeFalsey() method is chained to the assertion inside the expect method
 
-    
+
 
 
     /* 
