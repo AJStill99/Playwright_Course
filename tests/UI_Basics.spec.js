@@ -58,8 +58,8 @@ test("CSS Selectors and Playwright locators", async ({page}) => {
 
 test("UI Controls", async ({page}) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
-    const userName = await page.locator('#username');
-    const signIn = await page.locator('#signInBtn');
+    const userName = page.locator('#username'); // Await not need for storing a variable as no action is required
+    const signIn = page.locator('#signInBtn');
 
     // SECTION - DROPDOWNS
     const dropDown = await page.locator("select.form-control")
@@ -82,10 +82,14 @@ test("UI Controls", async ({page}) => {
 
     // SECTION - CHECKBOXES
 
-    await page.locator("#terms").click();
+    await page.locator("#terms").click(); // need to await to perform the ACTION at the end, is not need to store variables
     await expect(page.locator('#terms')).toBeChecked();
     await page.locator('#terms').uncheck(); // Uncheck the box
     expect(await page.locator('#terms').isChecked()).toBeFalsy(); // Returns false this time as has been unchecked, no isUnchecked method so this is a workaround
+    // Notice the await is inside the brackets, because the action is needed inside the brackets
+    // Also note the toBeFalsey() method is chained to the assertion inside the expect method
+
+    
 
 
     /* 
