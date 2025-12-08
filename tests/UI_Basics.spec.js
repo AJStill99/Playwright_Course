@@ -60,6 +60,7 @@ test("UI Controls", async ({page}) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     const userName = page.locator('#username'); // Await not need for storing a variable as no action is required
     const signIn = page.locator('#signInBtn');
+    const documentLink = page.locator("[href*='documents-request']");
 
     // SECTION - DROPDOWNS
     const dropDown = await page.locator("select.form-control")
@@ -90,19 +91,45 @@ test("UI Controls", async ({page}) => {
     // the await keyword is tied to actions
     // Also note the toBeFalsey() method is chained to the assertion inside the expect method
 
-
-
-
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
     /* 
     NOTE: Focus here:
     - Getting the last radio button as there are multiple of them
     - Clicking the okay button from the pop up that appears after selecting one of the radio buttons
     - Using assertion to ensure our selection has been made
     */
+});
 
+// SECTION - HANDLING Child windows / TABS
 
+test("Handling child windows / tabs", async ({ browser}) => { 
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const documentLink = page.locator("[href*='documents-request']");
+    const userName = page.locator('#username'); // Await not need for storing a variable as no action is required
+    const signIn = page.locator('#signInBtn');
 
+    // Wrap the promise in an array in case it returns multiple values, if more than one, simply declare it in the array like - newPage2 or something 
+    const [newPage] = await Promise.all([
+        context.waitForEvent('page'), // Waits for the new tab to open, will return a promise; either pending, resolved or rejected
+        // Note, this works like an event listener does in JS, so it needs to be declared BEFORE the action that triggers the event
+        documentLink.click(), // This opens a new tab
+        // This allows for the two actions to be performed simultaneously
+    ]);
+    // Can use this newPage promise to access the new page / tab throughout your test
+    const text = await newPage.locator(".red").textContent();
+    const arrayText = text.split("@")
+    const domain = arrayText[1].split(" ")[0];
+    console.log(domain);
 
+    await userName.fill(domain);
+    await signIn.click();
+    // Bare in mind that these actions are being performed on the original page / tab
+    // using page.locator not newPage.locator since it is the OG page
+
+    console.log(await userName.inputValue());
+    // Common method to get the value of an input field, as textContent() will not work here, since we are updating the value of the input field at runtime
 });
 
 
