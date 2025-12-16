@@ -16,6 +16,7 @@ const config = defineConfig({
     // waits for 30 seconds - this might be a bit high for most cases
   },
   use: {
+    navigationTimeout: 60 * 1000,
     browserName: 'chromium', 
     // Default browser to use
     headless: false,

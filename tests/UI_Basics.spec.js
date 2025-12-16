@@ -60,7 +60,7 @@ test("UI Controls", async ({page}) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     const userName = page.locator('#username'); // Await not need for storing a variable as no action is required
     const signIn = page.locator('#signInBtn');
-    const documentLink = page.locator("[href*='documents-request']");
+    const   popupLink = page.locator("[href*='documents-request']");
 
     // SECTION - DROPDOWNS
     const dropDown = await page.locator("select.form-control")
@@ -91,7 +91,7 @@ test("UI Controls", async ({page}) => {
     // the await keyword is tied to actions
     // Also note the toBeFalsey() method is chained to the assertion inside the expect method
 
-    await expect(documentLink).toHaveAttribute("class", "blinkingText");
+    await expect(popupLink).toHaveAttribute("class", "blinkingText");
     /* 
     NOTE: Focus here:
     - Getting the last radio button as there are multiple of them
@@ -105,16 +105,16 @@ test("UI Controls", async ({page}) => {
 test("Handling child windows / tabs", async ({ browser}) => { 
     const context = await browser.newContext();
     const page = await context.newPage();
-    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
-    const documentLink = page.locator("[href*='documents-request']");
     const userName = page.locator('#username'); // Await not need for storing a variable as no action is required
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const   popupLink = page.locator("[href*='documents-request']");
     const signIn = page.locator('#signInBtn');
 
     // Wrap the promise in an array in case it returns multiple values, if more than one, simply declare it in the array like - newPage2 or something 
     const [newPage] = await Promise.all([
         context.waitForEvent('page'), // Waits for the new tab to open, will return a promise; either pending, resolved or rejected
         // Note, this works like an event listener does in JS, so it needs to be declared BEFORE the action that triggers the event
-        documentLink.click(), // This opens a new tab
+        popupLink.click(), // This opens a new tab
         // This allows for the two actions to be performed simultaneously
     ]);
     // Can use this newPage promise to access the new page / tab throughout your test
